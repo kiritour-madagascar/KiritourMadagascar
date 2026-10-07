@@ -258,7 +258,34 @@ export default function FAQ() {
   const [openIdx, setOpen]   = useState(0);
   const [search, setSearch]  = useState("");
 
-  useEffect(() => { window.scrollTo(0, 0); setTimeout(() => setIn(true), 80); }, []);
+    useEffect(() => {
+    window.scrollTo(0, 0);
+    setTimeout(() => setIn(true), 80);
+
+    const title =
+      "Madagascar Travel FAQ | Tours, Tsingy, Baobabs & Kirindy | KiriTour";
+
+    const description =
+      "Find answers about Madagascar tours, Tsingy de Bemaraha, Avenue of the Baobabs, Kirindy Forest, bookings, payments, transport and custom trips with KiriTour.";
+
+    document.title = title;
+
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "description";
+      document.head.appendChild(meta);
+    }
+    meta.content = description;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = "https://kiritourmadagascar.com/faq";
+  }, []);
 
   /* search filter */
   const filtered = search.trim().length > 1

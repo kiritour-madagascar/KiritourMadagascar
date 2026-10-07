@@ -106,7 +106,7 @@ const whyUs = [
   { emoji: "💬", title: "WhatsApp Booking",      desc: "Real humans, instant response. Confirmation within 2 hours." },
   { emoji: "💎", title: "Transparent Pricing",   desc: "6 package tiers for every budget — fully disclosed." },
   { emoji: "🌿", title: "Eco-Responsible",       desc: "Local communities first. We protect what we share." },
-  { emoji: "⭐", title: "4.7 / 5 Google Rating", desc: "112+ verified travellers. Our reputation speaks for itself." },
+  { emoji: "⭐", title: "4.7 / 5 Google Rating", desc: "121+ verified travellers. Our reputation speaks for itself." }
 ];
 
 const howItWorks = [
@@ -302,7 +302,7 @@ function About() {
               <div className="flex items-center gap-3 rounded-xl px-4 py-3 border border-white/20 backdrop-blur-md" style={{ background: "rgba(255,255,255,.12)" }}>
                 <span className="text-2xl" aria-hidden="true">🏆</span>
                 <div>
-                  <p className="text-white font-bold text-sm" style={{ fontFamily: sans }}>3 years experience · 112+ travellers</p>
+                  <p className="text-white font-bold text-sm" style={{ fontFamily: sans }}>3 years experience · 121+ travellers</p>
                   <div className="flex gap-0.5 mt-0.5" aria-label="5 star rating">
                     {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-xs" aria-hidden="true">★</span>)}
                   </div>

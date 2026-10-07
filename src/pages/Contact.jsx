@@ -199,9 +199,33 @@ export default function Contact() {
   const [in_, setIn] = useState(false);
   const [activeCard, setActiveCard] = useState(null);
 
-  useEffect(() => {
+    useEffect(() => {
     window.scrollTo(0, 0);
     setTimeout(() => setIn(true), 80);
+
+    const title =
+      "Contact KiriTour Madagascar | Book Your Madagascar Adventure";
+
+    const description =
+      "Contact KiriTour Madagascar in Morondava to plan your Madagascar adventure. Ask about Baobabs, Tsingy, Kirindy, wildlife tours, transfers and custom itineraries.";
+
+    document.title = title;
+
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "description";
+      document.head.appendChild(meta);
+    }
+    meta.content = description;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = "https://kiritourmadagascar.com/contact";
   }, []);
 
   return (

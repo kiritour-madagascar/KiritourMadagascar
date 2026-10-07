@@ -704,11 +704,31 @@ export default function Tours() {
   const filtered = cat === "all" ? tours : tours.filter((t) => t.category === cat);
 
   /* ── SEO ── */
+    /* ── SEO ── */
   useEffect(() => {
-    document.title = "Madagascar Tours & Safaris — 14 Packages | KiriTour Madagascar";
+    const title =
+      "Madagascar Tours & Safaris — 14 Packages | KiriTour Madagascar";
+
+    const description =
+      "Discover 14 Madagascar tours: Avenue of the Baobabs, Tsingy de Bemaraha UNESCO, Kirindy Forest fossa safari, Tsiribihina River. Private guides from Morondava. From €145.";
+
+    document.title = title;
+
     let meta = document.querySelector('meta[name="description"]');
-    if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.appendChild(meta); }
-    meta.content = "Discover 14 Madagascar tours: Avenue of the Baobabs, Tsingy de Bemaraha UNESCO, Kirindy Forest fossa safari, Tsiribihina River. Private guides from Morondava. From €145.";
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "description";
+      document.head.appendChild(meta);
+    }
+    meta.content = description;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = "https://kiritourmadagascar.com/tours";
   }, []);
 
   return (

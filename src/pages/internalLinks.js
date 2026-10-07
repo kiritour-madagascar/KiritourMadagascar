@@ -1,28 +1,81 @@
 /* ══════════════════════════════════════════════════════════════
    INTERNAL LINKING MAP — Tour ↔ Blog ↔ Related Tours
-   Manampy Google mahita ny "web" eo amin'ny page rehetra
+   VERSION 2 — bebe links isaky ny tour
 ══════════════════════════════════════════════════════════════ */
 
-/* Tour ID → blog slug(s) related (azo manana maro) */
 export const TOUR_TO_BLOG = {
-  "western-1d":          ["best-time-visit-avenue-baobabs-madagascar"],
-  "kirindy-1d":           ["kirindy-forest-fossa-lemurs-guide", "what-to-pack-madagascar-safari"],
-  "kirindy-2d":           ["kirindy-forest-fossa-lemurs-guide", "what-to-pack-madagascar-safari"],
-  "tsingy-3d":            ["tsingy-de-bemaraha-travel-guide"],
-  "tsingy-4d":            ["tsingy-de-bemaraha-travel-guide", "best-time-visit-avenue-baobabs-madagascar"],
-  "tsiribihina-3d":       ["tsiribihina-river-descent-complete-guide"],
-  "tsiribihina-4d":       ["tsiribihina-river-descent-complete-guide", "kirindy-forest-fossa-lemurs-guide"],
-  "tsiribihina-5d":       ["tsiribihina-river-descent-complete-guide", "madagascar-itinerary-from-morondava"],
-  "tsiribihina-6d":       ["tsiribihina-river-descent-complete-guide", "tsingy-de-bemaraha-travel-guide"],
-  "tsiribihina-8d":       ["madagascar-itinerary-from-morondava", "what-to-pack-madagascar-safari"],
-  "andasibe-3d":          ["madagascar-itinerary-from-morondava"],
-  "andasibe-4d":          ["madagascar-itinerary-from-morondava"],
-  "andasibe-5d":          ["madagascar-itinerary-from-morondava", "what-to-pack-madagascar-safari"],
-  "andasibe-palmarium":   ["madagascar-itinerary-from-morondava"],
+  "western-1d": [
+    "best-time-visit-avenue-baobabs-madagascar",
+    "what-to-pack-madagascar-safari",
+    "madagascar-itinerary-from-morondava",
+  ],
+  "kirindy-1d": [
+    "kirindy-forest-fossa-lemurs-guide",
+    "what-to-pack-madagascar-safari",
+    "best-time-visit-avenue-baobabs-madagascar",
+  ],
+  "kirindy-2d": [
+    "kirindy-forest-fossa-lemurs-guide",
+    "what-to-pack-madagascar-safari",
+    "madagascar-itinerary-from-morondava",
+  ],
+  "tsingy-3d": [
+    "tsingy-de-bemaraha-travel-guide",
+    "what-to-pack-madagascar-safari",
+    "madagascar-itinerary-from-morondava",
+  ],
+  "tsingy-4d": [
+    "tsingy-de-bemaraha-travel-guide",
+    "best-time-visit-avenue-baobabs-madagascar",
+    "what-to-pack-madagascar-safari",
+  ],
+  "tsiribihina-3d": [
+    "tsiribihina-river-descent-complete-guide",
+    "what-to-pack-madagascar-safari",
+    "madagascar-itinerary-from-morondava",
+  ],
+  "tsiribihina-4d": [
+    "tsiribihina-river-descent-complete-guide",
+    "kirindy-forest-fossa-lemurs-guide",
+    "what-to-pack-madagascar-safari",
+  ],
+  "tsiribihina-5d": [
+    "tsiribihina-river-descent-complete-guide",
+    "madagascar-itinerary-from-morondava",
+    "what-to-pack-madagascar-safari",
+  ],
+  "tsiribihina-6d": [
+    "tsiribihina-river-descent-complete-guide",
+    "tsingy-de-bemaraha-travel-guide",
+    "what-to-pack-madagascar-safari",
+  ],
+  "tsiribihina-8d": [
+    "madagascar-itinerary-from-morondava",
+    "what-to-pack-madagascar-safari",
+    "tsiribihina-river-descent-complete-guide",
+  ],
+  "andasibe-3d": [
+    "madagascar-itinerary-from-morondava",
+    "what-to-pack-madagascar-safari",
+    "kirindy-forest-fossa-lemurs-guide",
+  ],
+  "andasibe-4d": [
+    "madagascar-itinerary-from-morondava",
+    "what-to-pack-madagascar-safari",
+    "kirindy-forest-fossa-lemurs-guide",
+  ],
+  "andasibe-5d": [
+    "madagascar-itinerary-from-morondava",
+    "what-to-pack-madagascar-safari",
+    "tsingy-de-bemaraha-travel-guide",
+  ],
+  "andasibe-palmarium": [
+    "madagascar-itinerary-from-morondava",
+    "what-to-pack-madagascar-safari",
+    "kirindy-forest-fossa-lemurs-guide",
+  ],
 };
 
-/* Blog slug → recommended tours (already have relatedTour in blogData,
-   this gives a SECOND/THIRD suggestion for "you might also like") */
 export const BLOG_TO_MORE_TOURS = {
   "best-time-visit-avenue-baobabs-madagascar": ["kirindy-1d", "kirindy-2d"],
   "tsingy-de-bemaraha-travel-guide":            ["tsingy-3d", "kirindy-2d"],

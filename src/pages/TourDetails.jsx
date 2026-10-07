@@ -91,7 +91,9 @@ export default function TourDetails() {
     if (!t) return;
     const slug  = TOUR_SLUG_MAP[t.id];
     const url   = `https://kiritourmadagascar.com/tours/${slug}`;
-    const rawPrice = t.pricing?.[0]?.price || t.pricing?.[0]?.range || "";
+    // Karohy ny pricing misy price na range (tsy pkg note fotsiny)
+    const pricingRow = t.pricing?.find(p => p.price || p.range);
+    const rawPrice = pricingRow?.price || pricingRow?.range || "";
     const price = (rawPrice.match(/\d+/) || [""])[0];
     const img0  = t.images?.[0] || "";
     const title = `${t.title} — ${t.duration} Madagascar Tour | KiriTour`;
@@ -603,29 +605,57 @@ export default function TourDetails() {
               </R>
             )}
 
-            {/* FROM OUR BLOG — internal linking to guides */}
+            {/* READ BEFORE YOU GO — blog links renforcé */}
             {relatedBlogPosts.length > 0 && (
               <R d={0.18}>
-                <div>
-                  <h3 style={{ fontFamily: serif, fontSize: "clamp(1.2rem,2.5vw,1.6rem)", color: "white", fontWeight: 700, marginBottom: 16 }}>
-                    Helpful guides for this trip
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {relatedBlogPosts.map((post) => (
+                <div className="rounded-3xl overflow-hidden"
+                  style={{ background: "linear-gradient(145deg,#0a1f0c,#0d2b10)", border: "1px solid rgba(74,222,128,.12)" }}>
+                  <div className="px-6 sm:px-8 py-5 flex items-center gap-3"
+                    style={{ borderBottom: "1px solid rgba(74,222,128,.08)" }}>
+                    <span style={{ fontSize: 20 }}>📚</span>
+                    <div>
+                      <h3 style={{ fontFamily: serif, fontSize: "clamp(1.1rem,2.5vw,1.5rem)", color: "white", fontWeight: 700 }}>
+                        Read Before You Go
+                      </h3>
+                      <p style={{ fontFamily: sans, fontSize: 11, color: "rgba(255,255,255,.35)", marginTop: 2 }}>
+                        Expert guides to help you prepare for this tour
+                      </p>
+                    </div>
+                  </div>
+                  <div className="p-4 sm:p-6 flex flex-col gap-3">
+                    {relatedBlogPosts.map((post, i) => (
                       <div key={post.slug} onClick={() => navigate(`/blog/${post.slug}`)}
                         className="group flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all hover:-translate-y-0.5"
-                        style={{ background: "#111f13", border: "1px solid rgba(255,255,255,.07)" }}>
-                        <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                        style={{ background: i === 0 ? "rgba(74,222,128,.08)" : "rgba(255,255,255,.04)", border: `1px solid ${i === 0 ? "rgba(74,222,128,.2)" : "rgba(255,255,255,.06)"}` }}>
+                        <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 shadow-lg">
                           <img src={post.cover} alt={post.title} width="64" height="64" loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             onError={(e) => { e.target.src = "https://i.ibb.co/5xXLDSZQ/20250729-173834.jpg"; }} />
                         </div>
-                        <div className="min-w-0">
-                          <p style={{ fontFamily: sans, fontSize: 10, color: accent, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".08em" }}>{post.category}</p>
-                          <p style={{ fontFamily: serif, fontSize: 14, color: "white", fontWeight: 700, lineHeight: 1.3, marginTop: 2 }} className="line-clamp-2">{post.title}</p>
+                        <div className="min-w-0 flex-1">
+                          <span style={{ fontFamily: sans, fontSize: 9, color: accent, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".12em", background: `${accent}18`, padding: "2px 8px", borderRadius: 20 }}>
+                            {post.category}
+                          </span>
+                          <p style={{ fontFamily: serif, fontSize: 14, color: "white", fontWeight: 700, lineHeight: 1.3, marginTop: 5 }} className="line-clamp-2">
+                            {post.title}
+                          </p>
+                          <p style={{ fontFamily: sans, fontSize: 11, color: "rgba(255,255,255,.3)", marginTop: 3 }}>
+                            {post.readTime} read
+                          </p>
+                        </div>
+                        <div style={{ flexShrink: 0, color: "rgba(255,255,255,.2)", fontSize: 18 }}
+                          className="group-hover:text-white group-hover:translate-x-1 transition-all">
+                          →
                         </div>
                       </div>
                     ))}
+                    <div className="mt-2 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,.05)" }}>
+                      <button onClick={() => navigate("/blog")}
+                        className="w-full py-2.5 rounded-xl text-xs font-semibold transition-all hover:bg-white/10"
+                        style={{ fontFamily: sans, color: "rgba(255,255,255,.4)", border: "1px solid rgba(255,255,255,.07)" }}>
+                        View all travel guides →
+                      </button>
+                    </div>
                   </div>
                 </div>
               </R>
