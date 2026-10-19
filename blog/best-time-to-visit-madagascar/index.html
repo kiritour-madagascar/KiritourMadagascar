@@ -118,6 +118,94 @@
     <!-- The ONLY web fonts of the site: Playfair Display (titles) + DM Sans (text) -->
     <link id="kt-fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap">
 
+    <!-- ═══ GOOGLE ANALYTICS 4 + fanisana tsindry (WhatsApp, email, formulaire) ═══
+         • Eoropa (EEA, UK, Suisse): tsy misy cookie raha tsy manaiky ny mpitsidika (RGPD)
+         • Hafatra WhatsApp: ampiana ho azy hoe avy amin'ny pejy inona ilay client -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      (function () {
+        var EEA = ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
+        var choice = null;
+        try { choice = localStorage.getItem("kt-consent"); } catch (e) {}
+        gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "denied", region: EEA, wait_for_update: 500 });
+        gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "granted" });
+        if (choice === "granted" || choice === "denied") gtag("consent", "update", { analytics_storage: choice });
+        gtag("js", new Date());
+        gtag("config", "G-434WDBN5SF");
+
+        if (window.__PRERENDER__) return;   // tsy misy fanisana na banner mandritra ny build
+
+        /* Anarana fohy ho an'ny pejy: "home", "kirindy-forest-1-day-tour-from-morondava", ... */
+        function pageLabel() {
+          var parts = location.pathname.split("/").filter(Boolean);
+          return parts.length ? parts[parts.length - 1] : "home";
+        }
+        /* WhatsApp: ampiana "(from: …)" amin'ny hafatra efa voasoratra */
+        function tagWa(url) {
+          try {
+            var u = new URL(url, location.href);
+            if (!/(^|\.)wa\.me$|api\.whatsapp\.com$/.test(u.hostname)) return url;
+            var t = u.searchParams.get("text");
+            if (!t || t.indexOf("(from: ") !== -1) return url;
+            u.searchParams.set("text", t + "\n\n(from: " + pageLabel() + ")");
+            var q = []; u.searchParams.forEach(function (v, k) { q.push(encodeURIComponent(k) + "=" + encodeURIComponent(v)); });
+            return u.origin + u.pathname + "?" + q.join("&");   // %20 fa tsy "+" (WhatsApp)
+          } catch (e) { return url; }
+        }
+        function track(name, params) { try { gtag("event", name, Object.assign({ page_label: pageLabel() }, params || {})); } catch (e) {} }
+
+        /* Bokotra mampiasa window.open (WhatsApp) */
+        var open = window.open;
+        window.open = function (url) {
+          if (typeof url === "string" && /wa\.me|whatsapp\.com/.test(url)) { arguments[0] = tagWa(url); track("whatsapp_click"); }
+          return open.apply(window, arguments);
+        };
+        /* Rohy <a> (WhatsApp, email, telefaona) */
+        document.addEventListener("click", function (e) {
+          var a = e.target && e.target.closest && e.target.closest("a[href]");
+          if (!a) return;
+          var h = a.getAttribute("href") || "";
+          if (/wa\.me|whatsapp\.com/.test(h)) { a.setAttribute("href", tagWa(h)); track("whatsapp_click"); }
+          else if (h.indexOf("mailto:") === 0) track("email_click");
+          else if (h.indexOf("tel:") === 0) track("phone_click");
+        }, true);
+        /* Formulaire Contact (FormSubmit) nalefa soa aman-tsara */
+        if (window.fetch) {
+          var f = window.fetch;
+          window.fetch = function (input) {
+            var url = typeof input === "string" ? input : (input && input.url) || "";
+            var p = f.apply(this, arguments);
+            if (url.indexOf("formsubmit.co") !== -1) p.then(function (r) { if (r && r.ok) track("generate_lead", { method: "contact_form" }); }).catch(function () {});
+            return p;
+          };
+        }
+
+        /* Banner cookie kely (raha mbola tsy nisafidy) */
+        if (choice) return;
+        function banner() {
+          var b = document.createElement("div");
+          b.id = "kt-consent";
+          b.setAttribute("role", "dialog");
+          b.setAttribute("aria-label", "Cookie choice");
+          b.style.cssText = "position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:560px;margin:0 auto;background:#082618;color:#fff;border-radius:16px;padding:14px 16px;font:14px/1.45 'DM Sans',system-ui,sans-serif;box-shadow:0 12px 32px rgba(0,0,0,.35);display:flex;flex-wrap:wrap;gap:10px;align-items:center";
+          b.innerHTML = '<span style="flex:1 1 260px">We use anonymous statistics cookies to understand which tours interest our visitors. <a href="/privacy/" style="color:#f5b923">Privacy</a></span>' +
+            '<span style="display:flex;gap:8px"><button type="button" data-c="denied" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:8px 14px;cursor:pointer">Decline</button>' +
+            '<button type="button" data-c="granted" style="background:#f5b923;color:#082618;border:0;border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer">Accept</button></span>';
+          b.addEventListener("click", function (e) {
+            var c = e.target && e.target.getAttribute && e.target.getAttribute("data-c");
+            if (!c) return;
+            try { localStorage.setItem("kt-consent", c); } catch (err) {}
+            gtag("consent", "update", { analytics_storage: c });
+            b.remove();
+          });
+          document.body.appendChild(b);
+        }
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", banner); else banner();
+      })();
+    </script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-434WDBN5SF"></script>
+
     <!-- ═══ SPA redirect support (404.html → real URL) ═══ -->
     <script>
       (function (l) {
