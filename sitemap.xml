@@ -192,6 +192,9 @@
   <url><loc>https://kiritourmadagascar.com/booking-conditions/</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://kiritourmadagascar.com/terms/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://kiritourmadagascar.com/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://kiritourmadagascar.com/hugo-randriamiharisoa/</loc><changefreq>monthly</changefreq><priority>0.4</priority>
+    <image:image><image:loc>https://i.ibb.co/TBCjMfLd/IMG-0437.jpg</image:loc></image:image>
+  </url>
   <url><loc>https://kiritourmadagascar.com/tours/avenue-of-the-baobabs/</loc><changefreq>monthly</changefreq><priority>0.9</priority>
     <image:image><image:loc>https://i.ibb.co/svSCbRxM/IMG-20260224-WA0036.jpg</image:loc></image:image>
     <image:image><image:loc>https://i.ytimg.com/vi/IYTK3BVkdBg/hqdefault.jpg</image:loc></image:image>
